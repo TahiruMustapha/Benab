@@ -45,7 +45,7 @@ const NewArrival = ({ products }: Props) => {
     ],
   };
   return (
-    <Container className=" -mt-60 w-[85%] ">
+    <Container className=" -mt-20 md:-mt-60 w-[85%] ">
       <div>
         <Slider {...settings}>
           {products?.map((item: ProductProps) => (
