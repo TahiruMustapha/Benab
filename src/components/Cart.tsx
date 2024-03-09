@@ -23,7 +23,7 @@ const Cart = () => {
 
   useEffect(() => {
     let price = 0;
-    productData.map((item:ProductProps) => {
+    productData.map((item) => {
       price += item?.price * item?.quantity;
       return price;
     });
@@ -148,7 +148,7 @@ const Cart = () => {
               Your Cart feels lonely.
             </h1>
             <p className="text-sm text-center px-10 -mt-2">
-              Your Shopping cart lives to serve. Give it purpose - fill it with
+              Your Shopping cart lives to serve. Give it purpose fill it with
               books, electronics, videos, etc. and make it happy.
             </p>
             <Link
