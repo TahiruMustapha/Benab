@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { ProductProps } from "../../Type";
 import Price from "./Price";
 import { addToCart } from "@/redux/benabSlice";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const ProductInfo = ({ product }: Props) => {
   const dispatch = useDispatch();
@@ -46,16 +46,6 @@ const ProductInfo = ({ product }: Props) => {
         Spring collection, streetwear,women Tags: featured SKU: N/A
       </p>
 
-      <Toaster
-          position="bottom-right"
-          toastOptions={{
-            style: {
-              background: "#000",
-              fontWeight:"bold",
-              color: "#fff",
-            },
-          }}
-        />
     </div>
   );
 };

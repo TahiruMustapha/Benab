@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { StateProps } from "../../Type";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const PageButton = () => {
   const { productData } = useSelector((state: StateProps) => state.benab);
@@ -15,7 +15,7 @@ const PageButton = () => {
   return (
     <div className="flex fixed top-60  right-2 z-20 flex-col gap-2">
       <button
-        onClick={() => !session?.user ? signIn() : toast.error('You are already signed in')}
+        onClick={() => !session?.user ? signIn() : toast.error("You already signed in...") }
         className="bg-white pt-2 rounded-md  cursor-pointer items-center justify-center shadow-textShadow overflow-x-hidden group text-[#33475b] w-14  flex flex-col gap-1"
       >
         <div className="flex justify-center items-center">
@@ -61,16 +61,7 @@ const PageButton = () => {
           {productData ? productData?.length : 0}
         </p>
       </Link>
-      <Toaster
-          position="bottom-right"
-          toastOptions={{
-            style: {
-              background: "#000",
-              fontWeight:"bold",
-              color: "#fff",
-            },
-          }}
-        />
+     
     </div>
   );
 };

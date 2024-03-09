@@ -1,8 +1,6 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import logo from "@/assets/logoBlack.png";
-import Image from "next/image";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";

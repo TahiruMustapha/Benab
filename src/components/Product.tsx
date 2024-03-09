@@ -8,7 +8,7 @@ import { BsArrowsFullscreen } from "react-icons/bs";
 import { MdOutlineStarPurple500 } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/benabSlice";
-import toast, { Toaster } from "react-hot-toast";
+import toast  from "react-hot-toast";
 
 interface Props {
   product: ProductProps;
@@ -93,16 +93,7 @@ const Product = ({ product, bg }: Props) => {
             <span className=" font-medium text-sm">{product?.ratings}</span>
           </div>
         </div>
-        <Toaster
-          position="bottom-right"
-          toastOptions={{
-            style: {
-              background: "#000",
-              fontWeight:"bold",
-              color: "#fff",
-            },
-          }}
-        />
+        
       </div>
     </div>
   );

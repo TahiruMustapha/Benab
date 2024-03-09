@@ -6,7 +6,7 @@ import { urlFor } from "@/lib/sanityClient";
 import Link from "next/link";
 import { ImCrop, ImCross } from "react-icons/im";
 import Price from "./Price";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import {
   decreaseQuantity,
@@ -50,10 +50,12 @@ const CartItem = ({ item }: Props) => {
           <span
             onClick={() => {
               dispatch(decreaseQuantity({ _id: item?._id }));
-              toast.success(`${item?.title.substring(0,12)} decrease successfully...`);
               const dNumber = item?.quantity;
               if (dNumber == 1) {
                 toast.error("Product cannot be less than 1...");
+              }else{
+                toast.success(`${item?.title.substring(0,12)} decrease successfully...`);
+
               }
             }}
             className=" w-6 h-6 bg-gray-100 flex items-center justify-center text-2xl border-[1px] hover:bg-gray-300 border-gray-300 hover:border-gray-500 cursor-pointer duration-300"
@@ -75,16 +77,7 @@ const CartItem = ({ item }: Props) => {
           <p>${item.quantity * item.price}</p>
         </div>
       </div>
-      <Toaster
-        position="bottom-right"
-        toastOptions={{
-          style: {
-            background: "#000",
-            fontWeight: "bold",
-            color: "#fff",
-          },
-        }}
-      />
+      
     </div>
   );
 };
