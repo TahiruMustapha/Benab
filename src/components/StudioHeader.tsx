@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import logo from "../assets/logoLight.png";
 import { IoReturnDownBack } from "react-icons/io5";
+import { FaShoppingCart } from "react-icons/fa";
 
 const StudioHeader = (props: any) => {
   return (
@@ -15,7 +16,11 @@ const StudioHeader = (props: any) => {
           {" "}
           <IoReturnDownBack /> Go to Website
         </Link>
-        <Image src={logo} alt="logo" className="w-24" />
+        <Link className="flex items-center text-2xl font-semibold " href={"/"}>
+          BENAB
+          <FaShoppingCart />
+        </Link>
+        
         <p className="text-sm">Admin Studio for BENAB</p>
       </div>
       {props.renderDefault(props)}
