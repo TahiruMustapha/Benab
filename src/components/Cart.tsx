@@ -2,26 +2,28 @@
 import React, { useEffect, useState } from "react";
 import Container from "./Container";
 import { useDispatch, useSelector } from "react-redux";
-import { ProductProps, StateProps } from "../../Type";
-import Link from "next/link";
+import { StateProps } from "../../Type";
 import CartItem from "./CartItem";
-import { resetProduct } from "@/redux/benabSlice";
 import toast from "react-hot-toast";
 import emptyCart from "@/assets/emptyCart.png";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import Price from "./Price";
-import { useSession } from "next-auth/react";
 import { loadStripe } from "@stripe/stripe-js";
+import { useSession } from "next-auth/react";
+import { ProductProps } from "../../Type";
+import { resetProduct } from "@/redux/benabSlice";
 
 const Cart = () => {
   const { productData } = useSelector((state: StateProps) => state.benab);
   const dispatch = useDispatch();
   const [totalAmt, setTotalAmt] = useState(0);
   const { data: session } = useSession();
+
   useEffect(() => {
     let price = 0;
-    productData.map((item) => {
+    productData.map((item:ProductProps) => {
       price += item?.price * item?.quantity;
       return price;
     });
@@ -29,12 +31,13 @@ const Cart = () => {
   }, [productData]);
 
   const handleReset = () => {
-    const confirmed = window.confirm("Are you sure about this?");
+    const confirmed = window.confirm("Are you sure to reset your Cart?");
     confirmed && dispatch(resetProduct());
-    toast.success("Cart is Cleaned Successfully...");
+    toast.success("Cart resetted successfully!");
   };
 
-  // Stripe Payment
+  // Stripe payment
+
   const stripePromise = loadStripe(
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
   );
@@ -57,19 +60,19 @@ const Cart = () => {
       toast.error("Please sign in to make Checkout");
     }
   };
-  // Stripe Payment
+
   return (
     <Container>
-      {productData.length > 0 ? (
+      {productData?.length > 0 ? (
         <div className="pb-20">
-          <div className=" w-full mb-4 h-20 bg-[#f5f7f7] text-primeColor hidden lg:grid  grid-cols-5 place-content-center px-6 text-lg font-semibold">
-            <h2 className=" col-span-2">Product</h2>
+          <div className="w-full h-20 bg-[#f5f7f7] text-primeColor hidden lg:grid grid-cols-5 place-content-center px-6 text-lg font-semibold">
+            <h2 className="col-span-2">Product</h2>
             <h2>Price</h2>
             <h2>Quantity</h2>
-            <h2>SubTotal</h2>
+            <h2>Sub Total</h2>
           </div>
-          <div>
-            {productData.map((item) => (
+          <div className="mt-5">
+            {productData.map((item:ProductProps) => (
               <div key={item?._id}>
                 <CartItem item={item} />
               </div>
@@ -77,9 +80,9 @@ const Cart = () => {
           </div>
           <button
             onClick={handleReset}
-            className=" py-2 px-10 bg-red-500 text-white font-semibold uppercase mb-4 hover:bg-red-700 duration-300 rounded-md"
+            className="py-2 px-10 bg-red-500 text-white font-semibold uppercase mb-4 hover:bg-red-700 duration-300"
           >
-            Reset Cart
+            Reset cart
           </button>
           <div className="flex flex-col md:flex-row justify-between border p-4 items-center gap-2 md:gap-0">
             <div className="flex items-center gap-4">
@@ -127,37 +130,35 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <div>
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            className=" h-[50vh] flex flex-col mt-10 md:flex-row  justify-center  items-center   pb-20"
-          >
+        <motion.div
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-col md:flex-row justify-center items-center gap-4 pb-20"
+        >
+          <div>
             <Image
               src={emptyCart}
-              alt="emptyCart image"
-              className="w-80 rounded-lg p-4"
+              alt="emptyCart"
+              className="w-80 rounded-lg p-4 mx-auto"
             />
-            <div className="max-w-[500px] flex flex-col items-center  p-4 py-8 bg-white  gap-4 rounded-md shadow-lg">
-              <h1 className=" text-xl uppercase font-semibold">
-                Your cart feels lonely!
-              </h1>
-              <p className=" text-sm text-center px-10 -mt-2">
-                "Your cart is feeling a bit lonely! Start adding items now to
-                bring it to life with exciting finds. Explore our collections
-                and fill your cart with goodies that will delight you. Happy
-                shopping!"
-              </p>
-              <Link
-                className=" bg-primeColor cursor-pointer rounded-md hover:bg-black hover:text-white active:bg-gray-900 px-8 py-2 font-semibold text-gray-200 duration-300 "
-                href={"/"}
-              >
-                Go Shopping
-              </Link>
-            </div>
-          </motion.div>
-        </div>
+          </div>
+          <div className="max-w-[500px] p-4 py-8 bg-white flex flex-col gap-4 items-center rounded-md shadow-lg">
+            <h1 className="text-xl font-bold uppercase">
+              Your Cart feels lonely.
+            </h1>
+            <p className="text-sm text-center px-10 -mt-2">
+              Your Shopping cart lives to serve. Give it purpose - fill it with
+              books, electronics, videos, etc. and make it happy.
+            </p>
+            <Link
+              href={"/"}
+              className="bg-primeColor rounded-md cursor-pointer hover:bg-black active:bg-gray-900 px-8 py-2 font-semibold text-lg text-gray-200 hover:text-white duration-300"
+            >
+              Continue Shopping
+            </Link>
+          </div>
+        </motion.div>
       )}
     </Container>
   );

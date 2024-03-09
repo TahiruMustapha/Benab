@@ -11,7 +11,7 @@ const SuccessPage = ({searchParams}:any) => {
 
   useEffect(()=>{
     !searchParams?.session_id ? redirect('/'):dispatch(resetProduct());
-  },[]);
+  });
   return (
     <Container className="flex items-center justify-center py-20">
       <div className=" min-h-[400px] flex flex-col items-center justify-center gap-y-5">
