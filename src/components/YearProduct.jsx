@@ -6,7 +6,7 @@ import productOfTheYear from "@/assets/productOfTheYear.webp";
 import Link from "next/link";
 const YearProduct = () => {
   return (
-    <div className="w-full bg-[#f3f3f3]">
+    <div className="w-full bg-[#f3f3f3] h-[300px] md:h-full">
       <Container className="md:bg-transparent relative py-0 mb-10">
         <Image
           src={productOfTheYear}
@@ -19,7 +19,7 @@ const YearProduct = () => {
           </h1>
           <p className=" text-base font-normal text-primeColor max-w-[600px] mr-4">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-            dicta magni ipsum repellendus .
+            dicta magni ipsum repellendus.
           </p>
           <Link
             href={"/shop"}
