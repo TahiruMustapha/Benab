@@ -34,8 +34,9 @@ const Navbar = () => {
   ];
   const [searchQuery, setSearchQuery] = useState("");
   const { data: session } = useSession();
+  const [showNav, setShowNav] = useState(false);
   return (
-    <div className="w-full h-20 bg-white border-b-[1px] text-[#444] border-b-gray-400 sticky top-0 z-50">
+    <div className="w-full h-20 bg-white  border-b-[1px] text-[#444] border-b-gray-400 sticky top-0 z-50">
       <nav className="h-full max-w-screen-xl mx-auto px-4 xl:px-0 flex items-center gap-2 justify-between">
         <Link className="flex items-center text-2xl font-semibold " href={"/"}>
           BENAB
@@ -58,14 +59,26 @@ const Navbar = () => {
             <FaSearch className="w-5 h-5 hover:cursor-pointer" />
           )}
         </div>
-        <div className="hidden md:inline-flex items-center gap-2 ">
+        <div
+          className={`${
+            showNav
+              ? "md:hidden   inline-flex  bg-[#f3f3f3] absolute top-20 left-0  flex-col w-[300px] h-[100vh] gap-2 "
+              : "hidden md:inline-flex items-center gap-2"
+          }`}
+        >
           {navBarList.map((item) => (
             <Link
-              className={`flex hover:font-medium justify-center w-20 h-6 items-center px-12
-              text-gray-600 hover:underline underline-offset-4 decoration-[1px]
-               hover:text-gray-950 md:border-r-[2px] border-r-gray-400 duration-0 last:border-r-0 ${
-                 pathName === item?.link && "text-gray-950 underline"
-               }`}
+              className={`${
+                showNav
+                  ? ` text-primeColor transition ease-in-out delay-150 hover:text-xl hover:-translate-y-1 hover:scale-100 bg-white hover:text-white duration-300  hover:bg-gray-400 py-2  hover:font-medium px-4  ${
+                      pathName === item?.link && "  text-gray-950 underline"
+                    }`
+                  : `flex  hover:font-medium  justify-center w-20 h-6 items-center px-12  text-gray-600 hover:underline underline-offset-4 decoration-[1px] hover:text-gray-950 md:border-r-[2px] border-r-gray-400 duration-0 last:border-r-0 ${
+                      pathName === item?.link && "text-gray-950 underline"
+                    }`
+              }
+             
+                `}
               href={item?.link}
               key={item?.link}
             >
@@ -73,12 +86,25 @@ const Navbar = () => {
             </Link>
           ))}
           {session?.user && (
-            <button onClick={()=>signOut()} className="flex items-center justify-center w-20 h-6 px-12 text-gray-500 hover:font-medium hover:underline underline-offset-4 decoration-[1px] hover:text-red-600 md:border-r-[2px] border-r-gray-300 duration-200 last:border-r-0">
+            <button
+              onClick={() => signOut()}
+              className={`
+              ${
+                showNav
+                  ? `bg-white hover:bg-gray-400 duration-300 flex px-4 py-2`
+                  : `flex items-center justify-center w-20 h-6 px-12 text-gray-500 hover:font-medium hover:underline underline-offset-4 decoration-[1px] hover:text-red-600 md:border-r-[2px] border-r-gray-300 duration-200 last:border-r-0`
+              }
+              `}
+            >
               Logout
             </button>
           )}
         </div>
-        <HiMenuAlt2 className=" inline-flex md:hidden cursor-pointer w-8 h-6" />
+
+        <HiMenuAlt2
+          onClick={() => setShowNav(!showNav)}
+          className=" inline-flex md:hidden cursor-pointer w-8 h-6"
+        />
       </nav>
     </div>
   );
