@@ -11,7 +11,7 @@ const Footer = () => {
             <AiOutlineCopyright />
           </span>
           Copyright 2024 | Benab shopping | All Rights Reserved |
-          <a href="https://portfolio-next-five-eosin.vercel.app/" target="_blank" rel="noreferrer">
+          <a href="https://portfolio-next-five-eosin.vercel.app/" target="_blank" >
             <span className="ml-1 font-medium group-hover:text-primeColor">
               Developer - Tahiru
             </span>
